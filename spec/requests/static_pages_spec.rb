@@ -2,45 +2,34 @@ require 'spec_helper'
 
 describe "StaticPages" do
 
-  describe "Home page" do
+  subject { page }
 
-    it "should have the h1 'Faux Cinema'" do
-      visit '/static_pages/home'
-      page.should have_selector('h1', :text => 'Project Faux Cinema')
-    end
-    
-    it "should have the title 'Home'" do
-      visit '/static_pages/home'
-      page.should have_selector('title', 
-                        :text => "Project Faux Cinema | Home") 
-    end
+  describe "Home page" do
+    before { visit root_path}
+
+    it { should have_selector('h1', text: 'Project Faux Cinema') }
+    it { should have_selector('title', text: full_title('')) }
+    it { should_not have_selector('title', text: '| Home') }
   end
 
   describe "About page" do
+    before { visit about_path }
 
-    it "should have the h1 'About Us'" do
-      visit '/static_pages/about'
-      page.should have_selector('h1', :text =>'About Us')
-    end
-
-    it "should have the title 'About Us'" do
-      visit '/static_pages/about'
-      page.should have_selector('title',
-                        :text => "Project Faux Cinema | About Us")
-    end
+    it { should have_selector('h1', text: 'About Us') }
+    it { should have_selector('title', text: full_title('About Us')) }
   end
 
   describe "Contact page" do
- 
-    it "should have the h1 'Contact Us'" do
-      visit '/static_pages/contact'
-      page.should have_selector('h1', :text => 'Contact Us')
-    end
+    before { visit contact_path }
 
-    it "should have the title 'Contact Us'" do
-      visit '/static_pages/contact'
-      page.should have_selector('title',
-                        :text => "Project Faux Cinema | Contact Us")
-    end
+    it { should have_selector('h1', text: 'Contact') }
+    it { should have_selector('title', text: full_title('Contact')) }
+  end
+
+  describe "News Page" do
+    before { visit news_path }
+
+    it { should have_selector('h1', text: 'News') }
+    it { should have_selector('title', text: full_title('News')) }
   end
 end
